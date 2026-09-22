@@ -3,9 +3,12 @@
 @tailwind utilities;
 
 :root {
-  --background: #020617;
-  --text: #f8fafc;
-  --accent: #6366f1;
+  --background: #f8fafc;
+  --text: #111827;
+  --text-muted: #64748b;
+  --card-bg: #ffffff;
+  --card-border: #e2e8f0;
+  --accent: #059669;
 }
 
 body {
@@ -15,96 +18,103 @@ body {
 }
 
 @layer components {
+  /* Crisp, Human & Professional Light Mode Cards */
   .glass {
-    @apply bg-slate-900/30 backdrop-blur-2xl border border-white/[0.08] rounded-[2rem] shadow-2xl transition-all duration-500;
+    @apply bg-white border border-slate-200/80 rounded-2xl shadow-subtle transition-all duration-300;
   }
   
   .glass-card {
-    @apply bg-white/[0.02] backdrop-blur-lg border border-white/[0.05] rounded-3xl shadow-xl transition-all;
+    @apply bg-white border border-slate-200/70 rounded-2xl shadow-subtle transition-all duration-200;
   }
 
+  .card-premium {
+    @apply bg-white border border-slate-200/80 rounded-2xl shadow-card transition-all duration-300 hover:shadow-elevated;
+  }
+
+  /* Grounded CTA Buttons */
   .btn-flux {
-    @apply px-8 py-4 rounded-2xl font-bold transition-all duration-300 flex items-center justify-center gap-2 active:scale-95 text-xs tracking-widest uppercase;
+    @apply px-6 py-3 rounded-xl font-semibold transition-all duration-200 flex items-center justify-center gap-2 active:scale-[0.98] text-sm;
   }
 
   .btn-flux-primary {
-    @apply bg-indigo-600 text-white shadow-xl shadow-indigo-500/20 hover:bg-indigo-500 hover:shadow-indigo-500/40;
+    @apply bg-slate-900 text-white shadow-sm hover:bg-slate-800 hover:shadow-md transition-all duration-200;
   }
 
+  .btn-flux-emerald {
+    @apply bg-emerald-600 text-white shadow-sm hover:bg-emerald-700 hover:shadow-md hover:shadow-emerald-600/20 transition-all duration-200;
+  }
+
+  .btn-flux-secondary {
+    @apply bg-white text-slate-700 border border-slate-200/90 shadow-subtle hover:bg-slate-50 hover:text-slate-900 hover:border-slate-300 transition-all duration-200;
+  }
+
+  /* Light Theme Form Controls */
   .form-input {
-    @apply w-full px-5 py-4 bg-slate-950/40 border border-white/5 rounded-2xl text-white outline-none transition-all duration-300 focus:border-indigo-500/50 focus:bg-slate-900/60 placeholder:text-slate-700 text-sm;
+    @apply w-full px-4 py-2.5 bg-white border border-slate-200 rounded-xl text-slate-900 text-sm outline-none transition-all duration-200 focus:border-emerald-600 focus:ring-2 focus:ring-emerald-500/10 placeholder:text-slate-400;
   }
 
-  select.form-input { @apply appearance-none cursor-pointer; }
-  input[type="date"].form-input::-webkit-calendar-picker-indicator { filter: invert(1); }
+  select.form-input { 
+    @apply appearance-none cursor-pointer; 
+  }
 }
 
 @layer utilities {
-  .mesh-gradient {
+  /* Soft, Warm Ambient Mesh for Light Mode */
+  .mesh-gradient-light {
     @apply pointer-events-none fixed inset-0 -z-10 overflow-hidden;
-    background: radial-gradient(at 0% 0%, rgba(99, 102, 241, 0.15) 0px, transparent 50%),
-                radial-gradient(at 100% 0%, rgba(168, 85, 247, 0.1) 0px, transparent 50%),
-                radial-gradient(at 100% 100%, rgba(99, 102, 241, 0.1) 0px, transparent 50%),
-                radial-gradient(at 0% 100%, rgba(168, 85, 247, 0.15) 0px, transparent 50%);
+    background: 
+      radial-gradient(at 15% 10%, rgba(16, 185, 129, 0.05) 0px, transparent 45%),
+      radial-gradient(at 85% 5%, rgba(15, 23, 42, 0.03) 0px, transparent 40%),
+      radial-gradient(at 50% 100%, rgba(241, 245, 249, 0.8) 0px, transparent 50%);
+  }
+
+  /* Light Grid Accent Pattern */
+  .bg-grid-light {
+    background-size: 32px 32px;
+    background-image: 
+      linear-gradient(to right, rgba(226, 232, 240, 0.6) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(226, 232, 240, 0.6) 1px, transparent 1px);
   }
 }
 
-/* Luxury Animations */
-@keyframes float {
-  0%, 100% { transform: translateY(0px) rotate(0deg); }
-  50% { transform: translateY(-20px) rotate(1deg); }
+/* Subtle, Polished Keyframe Animations */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 
-.animate-float {
-  animation: float 6s ease-in-out infinite;
+.animate-fadeIn {
+  animation: fadeIn 0.4s ease-out forwards;
 }
 
-@keyframes reveal {
-  from { opacity: 0; transform: translateY(30px); filter: blur(10px); }
-  to { opacity: 1; transform: translateY(0); filter: blur(0); }
-}
-
-.animate-reveal {
-  animation: reveal 1s cubic-bezier(0.22, 1, 0.36, 1) forwards;
-}
-
-@keyframes pan {
-  from { background-position: 0% 50%; }
-  to { background-position: 100% 50%; }
-}
-
-.animate-pan {
-  background-size: 200% 200%;
-  animation: pan 15s linear infinite alternate;
-}
-
-@keyframes toast {
-  0% { opacity: 0; transform: translateY(20px) scale(0.9); }
+@keyframes toastSlide {
+  0% { opacity: 0; transform: translateY(12px) scale(0.96); }
   10% { opacity: 1; transform: translateY(0) scale(1); }
   90% { opacity: 1; transform: translateY(0) scale(1); }
-  100% { opacity: 0; transform: translateY(10px) scale(0.95); }
+  100% { opacity: 0; transform: translateY(8px) scale(0.98); }
 }
 
 .animate-toast {
-  animation: toast 4s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  animation: toastSlide 4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
-@keyframes modal-in {
-  from { opacity: 0; transform: scale(0.95) translateY(10px); }
+@keyframes modalIn {
+  from { opacity: 0; transform: scale(0.97) translateY(8px); }
   to { opacity: 1; transform: scale(1) translateY(0); }
 }
 
 .animate-modal {
-  animation: modal-in 0.4s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  animation: modalIn 0.25s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
-/* Custom Scrollbar */
+/* Custom Clean Scrollbar for Light Mode */
 ::-webkit-scrollbar {
   width: 6px;
+  height: 6px;
 }
 ::-webkit-scrollbar-track {
   background: transparent;
 }
 ::-webkit-scrollbar-thumb {
-  @apply bg-slate-800 rounded-full hover:bg-slate-700;
+  @apply bg-slate-300 rounded-full hover:bg-slate-400 transition-colors;
 }
